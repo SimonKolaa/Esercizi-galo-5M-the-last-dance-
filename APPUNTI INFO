@@ -6,6 +6,17 @@
 **PK (Primary Key)** = identificativo univoco che distingue il record dagli altri
 
 ## Cardinalità
-- `°` = 0  
-- `-` = 1  
-- `}o--` = N
+- `o` = 0  
+- `|` = 1  
+- `}` = N
+
+
+### Combinazioni di Cardinalità
+- `||` = 1:1 (uno a uno)
+- `|{` = 1:N (uno a molti)
+- `o{` = 0:N (zero a molti)
+- `o|` = 0:1 (zero a uno)
+
+||
+|{
+o{
