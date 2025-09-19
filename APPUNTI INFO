@@ -1,0 +1,11 @@
+# APPUNTI INFO
+
+**Relazione** è sinonimo → **TABELLA** = **classe** → **colonne** = **attributi**  
+**Riga** = **oggetto**
+
+**PK (Primary Key)** = identificativo univoco che distingue il record dagli altri
+
+## Cardinalità
+- `°` = 0  
+- `-` = 1  
+- `}o--` = N
