@@ -13,10 +13,13 @@
 
 ### Combinazioni di Cardinalità
 - `||` = 1:1 (uno a uno)
-- `|{` = 1:N (uno a molti)
+- `|{` = 1:N (uno a molti)  prendo la PK della tabella con cardinalità 1 e la metto come FK nella tabella con cardinalità N
 - `o{` = 0:N (zero a molti)
 - `o|` = 0:1 (zero a uno)
 
 ||
 |{
 o{
+
+FK = Foreign Key (chiave esterna) = attributo che fa riferimento alla PK di un'altra entità
+serve per tradurre le relazioni tra entità in tabelle relazionali
