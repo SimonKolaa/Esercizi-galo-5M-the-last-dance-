@@ -23,3 +23,16 @@ o{
 
 FK = Foreign Key (chiave esterna) = attributo che fa riferimento alla PK di un'altra entità
 serve per tradurre le relazioni tra entità in tabelle relazionali
+
+comprare nella 1-N, metto una colonna nella "N" che fa riferimento alla PK della "1"
+
+solitamente si mette il nome dell'entità _id
+nella N-N mtto due foreing key perchè ha due entità
+
+DATABASE
+varchar (STRING) = stringa lunghezza variabile
+char = stringa lunghezza fissa
+NOT NULL = obbligatorio (non vuoto)
+
+select * from tabella = prendi tutto da tabella
+where = filtra le righe
