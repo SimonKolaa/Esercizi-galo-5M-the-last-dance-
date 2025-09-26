@@ -59,19 +59,52 @@ SELECT * FROM PRODUZIONE WHERE ANNO = 2024;
 SELECT * FROM PRODUZIONE WHERE CODICE_APIARIO = 001;
 SELECT PRODUZIONE WHERE ID_MIELE = 3 AND ANNO = 2023;
 
-SELECT QUANTITA COUNT(*) AS NUMERO_PRODUZIONI FROM PRODUZIONE 
-WHERE ANNO = 2023;
-GROUP BY QUANTITA;
-
-SELECT AVG AS MEDIA_PRODUZIONE FROM APIARIO;
-
-SELECT NUMERO_PRODUZIONI, PRODUZIONE(*) FROM MIELE
-
-SELECT PRODUZIONE(*) FROM MIELE WHERE ANNO = 2024;
-
-SELECT VALORE(MAX), VALORE(MIN) FROM PRODUZIONE WHERE ANNO;
+--  Quantità totale prodotta per anno
+SELECT ANNO, SUM(QUANTITA) AS QUANTITA_TOTALE 
+FROM PRODUZIONE 
 GROUP BY ANNO;
+-- Spiegazione: raggruppa per anno e somma tutte le quantità di quell'anno
 
-SELECT APIARI FROM APIARIO WHERE PRODUZIONE > 200;
+--  Produzione media per apiario  
+SELECT CODICE_APIARIO, AVG(QUANTITA) AS MEDIA_PRODUZIONE 
+FROM PRODUZIONE 
+GROUP BY CODICE_APIARIO;
+-- Spiegazione: raggruppa per apiario e calcola la media delle quantità prodotte
 
-SELECT PRODUZIONE_TOTALE AS ID_TIPOLOGIA
+--  Numero di produzioni e produzione totale per miele
+SELECT ID_MIELE, COUNT(*) AS NUMERO_PRODUZIONI, SUM(QUANTITA) AS PRODUZIONE_TOTALE 
+FROM PRODUZIONE 
+GROUP BY ID_MIELE;
+-- Spiegazione: raggruppa per tipo di miele, conta quante volte è stato prodotto e somma le quantità
+
+--  Produzione totale per miele nell'anno 2024
+SELECT ID_MIELE, SUM(QUANTITA) AS PRODUZIONE_TOTALE 
+FROM PRODUZIONE 
+WHERE ANNO = 2024 
+GROUP BY ID_MIELE;
+-- Spiegazione: filtra solo anno 2024, poi raggruppa per miele e somma quantità
+
+--  Valore massimo e minimo di produzione per anno
+SELECT ANNO, MAX(QUANTITA) AS VALORE_MAX, MIN(QUANTITA) AS VALORE_MIN 
+FROM PRODUZIONE 
+GROUP BY ANNO;
+-- Spiegazione: raggruppa per anno, trova il valore più alto e più basso
+
+--  Numero di mieli per tipologia
+SELECT ID_TIPOLOGIA, COUNT(*) AS NUMERO_MIELI 
+FROM MIELE 
+GROUP BY ID_TIPOLOGIA;
+-- Spiegazione: raggruppa per tipologia e conta quanti mieli ci sono per ogni tipologia
+
+--  Conteggio produzioni con quantità > 100 per anno
+SELECT ANNO, COUNT(*) AS NUMERO_PRODUZIONI 
+FROM PRODUZIONE 
+WHERE QUANTITA > 100 
+GROUP BY ANNO;
+-- Spiegazione: filtra solo quantità > 100, raggruppa per anno e conta
+
+--  Somma quantità per miele e anno
+SELECT ID_MIELE, ANNO, SUM(QUANTITA) AS SOMMA_QUANTITA 
+FROM PRODUZIONE 
+GROUP BY ID_MIELE, ANNO;
+-- Spiegazione: raggruppa per miele E anno insieme, somma le quantità

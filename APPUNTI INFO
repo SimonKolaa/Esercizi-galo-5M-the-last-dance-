@@ -36,3 +36,132 @@ NOT NULL = obbligatorio (non vuoto)
 
 select * from tabella = prendi tutto da tabella
 where = filtra le righe
+per ogni = uso il group by 90%
+unione join = unire la primary key con la foreign key della tabella collegata
+
+se nell'esercizio leggo che ci sono due tabelle uso il join
+
+# APPUNTI INFO - DATABASE E DIAGRAMMI ER
+
+## TERMINOLOGIA BASE
+**Relazione** = **TABELLA** = **classe**  
+**Colonne** = **attributi** (proprietà dei dati)  
+**Righe** = **oggetti/record** (singole istanze)
+
+## CHIAVI
+**PK (Primary Key)** = identificativo univoco che distingue ogni record dagli altri
+- Non può essere NULL
+- Deve essere unico
+- Non dovrebbe mai cambiare
+```sql
+-- Esempio: ID_STUDENTE INT PRIMARY KEY
+```
+
+**FK (Foreign Key)** = chiave esterna, attributo che fa riferimento alla PK di un'altra entità
+- Serve per tradurre le relazioni tra entità in tabelle relazionali
+- Si nomina solitamente: `nome_entità_id`
+```sql
+-- Esempio: ID_CLASSE INT, FOREIGN KEY (ID_CLASSE) REFERENCES CLASSE(ID_CLASSE)
+```
+
+## CARDINALITÀ NEI DIAGRAMMI ER
+- `o` = 0 (zero)
+- `|` = 1 (una)  
+- `}` = N (molte)
+
+### Combinazioni di Cardinalità
+- `||` = 1:1 (uno a uno)
+- `|{` = 1:N (uno a molti)
+- `o{` = 0:N (zero a molti)
+- `o|` = 0:1 (zero a uno)
+
+### REGOLA IMPORTANTE per 1:N
+Nella relazione 1:N, metto una colonna nella tabella "N" che fa riferimento alla PK della tabella "1"
+```sql
+-- Esempio: CLASSE (1) --- (N) STUDENTE
+-- Nella tabella STUDENTE aggiungo: ID_CLASSE INT
+```
+
+### REGOLA per N:N
+Nella relazione N:N creo una tabella intermedia con due Foreign Key
+```sql
+-- Esempio: STUDENTE (N) --- (N) CORSO
+-- Creo tabella: ISCRIZIONE (ID_STUDENTE, ID_CORSO)
+```
+
+## TIPI DI DATI SQL
+- `VARCHAR(n)` = stringa a lunghezza variabile (max n caratteri)
+- `CHAR(n)` = stringa a lunghezza fissa (esattamente n caratteri)
+- `INT` = numero intero
+- `FLOAT` = numero decimale
+- `NOT NULL` = campo obbligatorio (non può essere vuoto)
+
+```sql
+-- Esempio:
+NOME VARCHAR(50) NOT NULL,
+CODICE CHAR(5),
+ETA INT,
+VOTO FLOAT
+```
+
+## COMANDI SQL PRINCIPALI
+
+### SELECT
+`SELECT * FROM tabella` = seleziona tutto da una tabella
+
+```sql
+-- Esempio:
+SELECT * FROM STUDENTE;
+SELECT NOME, ETA FROM STUDENTE;
+```
+
+### WHERE
+`WHERE` = filtra le righe in base a condizioni
+
+```sql
+-- Esempio:
+SELECT * FROM STUDENTE WHERE ETA > 18;
+SELECT NOME FROM STUDENTE WHERE CITTA = 'Milano';
+```
+
+### GROUP BY
+`GROUP BY` = raggruppa righe per calcolare aggregazioni
+
+```sql
+-- Esempio:
+SELECT CITTA, COUNT(*) FROM STUDENTE GROUP BY CITTA;
+SELECT CLASSE, AVG(VOTO) FROM STUDENTE GROUP BY CLASSE;
+```
+
+### JOIN
+`JOIN` = unisce tabelle collegando PK con FK
+
+```sql
+-- Esempio:
+SELECT S.NOME, C.NOME_CLASSE 
+FROM STUDENTE S 
+JOIN CLASSE C ON S.ID_CLASSE = C.ID_CLASSE;
+```
+
+### REGOLA PRATICA
+- Se vedo "per ogni" → uso `GROUP BY` al 90%
+- Se ci sono due o più tabelle collegate → uso `JOIN`
+
+## FUNZIONI AGGREGATE (con GROUP BY)
+- `COUNT(*)` = conta le righe
+- `SUM(campo)` = somma i valori
+- `AVG(campo)` = calcola la media
+- `MAX(campo)` = valore massimo
+- `MIN(campo)` = valore minimo
+
+```sql
+-- Esempi:
+SELECT COUNT(*) FROM STUDENTE; -- conta tutti gli studenti
+SELECT SUM(VOTO) FROM ESAME; -- somma tutti i voti
+SELECT AVG(ETA) FROM STUDENTE; -- età media
+SELECT MAX(VOTO), MIN(VOTO) FROM ESAME; -- voto più alto e più basso
+
+-- Con GROUP BY:
+SELECT CLASSE, COUNT(*) FROM STUDENTE GROUP BY CLASSE; -- studenti per classe
+SELECT MATERIA, AVG(VOTO) FROM ESAME GROUP BY MATERIA; -- voto medio per materia
+```
