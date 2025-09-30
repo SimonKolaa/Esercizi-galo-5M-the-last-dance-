@@ -165,3 +165,21 @@ SELECT MAX(VOTO), MIN(VOTO) FROM ESAME; -- voto più alto e più basso
 SELECT CLASSE, COUNT(*) FROM STUDENTE GROUP BY CLASSE; -- studenti per classe
 SELECT MATERIA, AVG(VOTO) FROM ESAME GROUP BY MATERIA; -- voto medio per materia
 ```
+
+### SQL IN PYTHON
+bisogna creare un cursore
+cursor = sqlite3.connect('nome_database.db') -- creo il collegamento al database
+cursor =conn.cursor() -- creo il cursore
+
+try = prova ad eseguire il codice nel blocco successivo
+except = se c'è un errore esegui il codice nel blocco successivo
+finally =  anche se trovi errori lo esegui comunque
+create table if not exists = crea la tabella solo se non esiste già
+conn.commit() = salva le modifiche
+eseguo una select
+cursor.execute("SELECT * FROM tabella")
+eseguo una select con una riga
+cursor.execute("SELECT * FROM tabella WHERE colonna=?", (valore,))
+fetchall() = prendi tutte le righe
+fetchone() = prendi una riga
+conn.rollback() = annulla le modifiche
