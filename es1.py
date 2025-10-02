@@ -48,27 +48,36 @@ try:
         "INSERT INTO Studenti (Matricola, Nome, Cognome) VALUES (?, ?, ?)",
         (102, 'Lucia', 'Bianchi')
     )
-    cursor.execute (
-        "INSERT INTO Esami (id, Matricola, Corso, Voto) VALUES (?, ?, ?, ?)",
-        (1, 101, 'Matematica', 28),
-        (2, 102, 'Matematica', 28) #per entrambi gli studenti
-    )
-    cursor.execute (
-        "INSERT INTO Esami (id, Matricola, Corso, Voto) VALUES (?, ?, ?)",
-        (1, 101, 'Informatica', 30),
-        (2, 102, 'Informatica', 30)
-    )
-    cursor.execute (
-        "INSERT INTO Esami (id, Matricola, Corso, Voto) VALUES (?, ?, ?)",
-        (1, 101, 'Fisica', 27),
-        (2, 102, 'Fisica', 27)
-    )
 
+    cursor.execute (
+     "INSERT INTO Esami (id, Matricola, Corso, Voto) VALUES (?, ?, ?, ?)",
+     (1, 101, 'Matematica', 28))
+    
+    cursor.execute (
+     "INSERT INTO Esami (id, Matricola, Corso, Voto) VALUES (?, ?, ?, ?)",
+     (2, 101, 'Informatica', 30))
+    
+    cursor.execute (
+     "INSERT INTO Esami (id, Matricola, Corso, Voto) VALUES (?, ?, ?, ?)",
+     (3, 102, 'Informatica', 30))
+    
+    cursor.execute (
+     "INSERT INTO Esami (id, Matricola, Corso, Voto) VALUES (?, ?, ?, ?)",
+     (4, 101, 'Fisica', 27))
+    
+    cursor.execute (
+     "INSERT INTO Esami (id, Matricola, Corso, Voto) VALUES (?, ?, ?, ?)",
+     (5, 102, 'Fisica', 27))   
+    
     studenti = cursor.execute("SELECT * FROM Studenti").fetchall()
+    esami = cursor.execute("SELECT Corso, Voto FROM Esami WHERE Matricola = ?", (101,)).fetchone()
+    q = cursor.execute("SELECT Corso, Voto FROM Esami WHERE Matricola = ?", (101,)).fetchone()
+    z = cursor.execute("SELECT Matricola, COUNT(*) as NumeroEsami FROM Esami GROUP BY Matricola").fetchall()
+    print("Studenti:", studenti)
+    print("Esami di Matricola 101:", esami)
+    print("Esami di Matricola 101 (variabile q):", q)
+    print("Numero di esami per ciascuno studente:", z)
 
-    cursor.execute("SELECT Corso, Voto FROM Esami WHERE Matricola = ?", (101,))
-
-    cursor.execute ("SELECT Matricola, COUNT(*) as NumeroEsami FROM Esami GROUP BY Matricola")
 
 finally:
     conn.commit()

@@ -167,6 +167,9 @@ SELECT MATERIA, AVG(VOTO) FROM ESAME GROUP BY MATERIA; -- voto medio per materia
 ```
 
 ### SQL IN PYTHON
+quando si lavora con i database in Python, bisogna sempre usare il terminale per stampare i risultati, il db serve solo per vedere che ho fatto,
+ma devo avere i risultati nel terminale
+
 bisogna creare un cursore
 cursor = sqlite3.connect('nome_database.db') -- creo il collegamento al database
 cursor =conn.cursor() -- creo il cursore
@@ -180,6 +183,6 @@ eseguo una select
 cursor.execute("SELECT * FROM tabella")
 eseguo una select con una riga
 cursor.execute("SELECT * FROM tabella WHERE colonna=?", (valore,))
-fetchall() = prendi tutte le righe
+fetchall() = prendi tutte le righe, vanno usati quasi sempre per le query
 fetchone() = prendi una riga
 conn.rollback() = annulla le modifiche
